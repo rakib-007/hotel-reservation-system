@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.hotelapp.controllers.GuestController" prefWidth="1000" prefHeight="650">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:12;">
+            <Button text="Back" onAction="#goBack"/>
+            <Label text="Guests Management" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="12" style="-fx-padding:12;">
+            <TableView fx:id="tblGuests" prefHeight="500">
+                <columns>
+                    <TableColumn fx:id="colGuestId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colGuestName" text="Name" prefWidth="200"/>
+                    <TableColumn fx:id="colGuestPhone" text="Phone" prefWidth="150"/>
+                    <TableColumn fx:id="colGuestAddress" text="Address" prefWidth="250"/>
+                    <TableColumn fx:id="colGuestNid" text="NID/Passport" prefWidth="150"/>
+                    <TableColumn fx:id="colGuestReservations" text="Total Reservations" prefWidth="150"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Search:"/>
+                <TextField fx:id="tfSearch" promptText="Search by name, phone, or NID/Passport" prefWidth="300"/>
+                <Button text="Search" onAction="#handleSearch"/>
+                <Button text="Clear" onAction="#handleClear"/>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>
+

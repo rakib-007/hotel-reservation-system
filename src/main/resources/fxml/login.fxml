@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<AnchorPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.hotelapp.controllers.LoginController" prefWidth="900" prefHeight="600">
+    <children>
+        <VBox alignment="CENTER" spacing="12" layoutX="250" layoutY="150" AnchorPane.leftAnchor="250" AnchorPane.rightAnchor="250" AnchorPane.topAnchor="150" AnchorPane.bottomAnchor="150">
+            <Label text="Hotel Reservation System" style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+            <TextField fx:id="txtUser" promptText="Username" prefWidth="320"/>
+            <PasswordField fx:id="txtPass" promptText="Password" prefWidth="320"/>
+            <Button text="Login" onAction="#handleLogin" prefWidth="220"/>
+        </VBox>
+    </children>
+</AnchorPane>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="com.hotelapp.controllers.ReservationDetailController"
+      spacing="12" alignment="TOP_CENTER" style="-fx-padding:16;" prefWidth="700">
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Button text="Back" onAction="#goBack"/>
+        <Label text="Reservation Details" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+    </HBox>
+
+    <GridPane hgap="12" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints halignment="RIGHT" prefWidth="140"/>
+            <ColumnConstraints prefWidth="420"/>
+        </columnConstraints>
+
+        <Label text="Reservation ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+        <Label fx:id="lblId" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Guest:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+        <Label fx:id="lblGuest" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Room ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+        <Label fx:id="lblRoom" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+        <Label text="Check-in:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dpCheckIn" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+        <Label text="Check-out:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+        <DatePicker fx:id="dpCheckOut" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+        <Label text="Total:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+        <Label fx:id="lblTotal" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+
+        <Label text="Status:" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+        <Label fx:id="lblStatus" GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+    </GridPane>
+
+    <HBox spacing="12" alignment="CENTER">
+        <Button text="Save Changes" onAction="#handleSave"/>
+        <Button fx:id="btnCheckIn" text="Check In" onAction="#handleCheckIn" visible="false"/>
+        <Button fx:id="btnCheckOut" text="Check Out" onAction="#handleCheckOut" visible="false"/>
+        <Button text="Cancel Reservation" onAction="#handleCancel"/>
+    </HBox>
+
+</VBox>

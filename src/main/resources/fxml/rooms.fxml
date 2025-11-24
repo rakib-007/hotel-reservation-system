@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.hotelapp.controllers.RoomController" prefWidth="1000" prefHeight="650">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:12;">
+            <Button text="Back" onAction="#goBack"/>
+            <Label text="Rooms Management" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="12" style="-fx-padding:12;">
+            <TableView fx:id="tblRooms" prefHeight="360">
+                <columns>
+                    <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
+                    <TableColumn fx:id="colNumber" text="Room No" prefWidth="120"/>
+                    <TableColumn fx:id="colType" text="Type" prefWidth="160"/>
+                    <TableColumn fx:id="colPrice" text="Price" prefWidth="120"/>
+                    <TableColumn fx:id="colStatus" text="Status" prefWidth="120"/>
+                </columns>
+            </TableView>
+
+            <HBox spacing="14">
+                <VBox spacing="8">
+                    <GridPane hgap="8" vgap="8">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" prefWidth="110"/>
+                            <ColumnConstraints prefWidth="250"/>
+                        </columnConstraints>
+
+                        <Label text="Room No:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <TextField fx:id="tfRoomNumber" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                        <Label text="Type:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <TextField fx:id="tfType" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                        <Label text="Price:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                        <TextField fx:id="tfPrice" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                        <Label text="Status:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                        <ComboBox fx:id="cmbStatus" GridPane.rowIndex="3" GridPane.columnIndex="1">
+                            <items>
+                                <FXCollections fx:factory="observableArrayList">
+                                    <String fx:value="FREE"/>
+                                    <String fx:value="BOOKED"/>
+                                    <String fx:value="MAINTENANCE"/>
+                                </FXCollections>
+                            </items>
+                        </ComboBox>
+                    </GridPane>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding:8 0 0 0;">
+                        <Button text="Add" onAction="#handleAdd"/>
+                        <Button text="Update" onAction="#handleUpdate"/>
+                        <Button text="Delete" onAction="#handleDelete"/>
+                    </HBox>
+                </VBox>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <VBox alignment="TOP_RIGHT" spacing="8">
+                    <Label text="(Select a room to load into the form)" wrapText="true" prefWidth="300"/>
+                </VBox>
+            </HBox>
+        </VBox>
+    </center>
+</BorderPane>

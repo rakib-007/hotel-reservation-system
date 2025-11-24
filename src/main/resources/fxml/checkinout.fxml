@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="com.hotelapp.controllers.CheckInOutController" prefWidth="1100" prefHeight="700">
+    <top>
+        <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:12;">
+            <Button text="Back" onAction="#goBack"/>
+            <Label text="Check-in / Check-out Management" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+        </HBox>
+    </top>
+
+    <center>
+        <VBox spacing="15" style="-fx-padding:15;">
+            <!-- Today's Check-ins Section -->
+            <TitledPane text="Today's Check-ins" collapsible="true" expanded="true">
+                <VBox spacing="10" style="-fx-padding:10;">
+                    <Label text="Reservations scheduled for check-in today:" style="-fx-font-weight:bold;"/>
+                    <TableView fx:id="tblCheckIns" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="colCheckInId" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="colCheckInRoom" text="Room" prefWidth="80"/>
+                            <TableColumn fx:id="colCheckInGuest" text="Guest Name" prefWidth="200"/>
+                            <TableColumn fx:id="colCheckInCheckIn" text="Check-in" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckInCheckOut" text="Check-out" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckInTotal" text="Total (Tk)" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckInAction" text="Action" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </TitledPane>
+
+            <!-- Today's Check-outs Section -->
+            <TitledPane text="Today's Check-outs" collapsible="true" expanded="true">
+                <VBox spacing="10" style="-fx-padding:10;">
+                    <Label text="Reservations scheduled for check-out today:" style="-fx-font-weight:bold;"/>
+                    <TableView fx:id="tblCheckOuts" prefHeight="200">
+                        <columns>
+                            <TableColumn fx:id="colCheckOutId" text="ID" prefWidth="60"/>
+                            <TableColumn fx:id="colCheckOutRoom" text="Room" prefWidth="80"/>
+                            <TableColumn fx:id="colCheckOutGuest" text="Guest Name" prefWidth="200"/>
+                            <TableColumn fx:id="colCheckOutCheckIn" text="Check-in" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckOutCheckOut" text="Check-out" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckOutTotal" text="Total (Tk)" prefWidth="120"/>
+                            <TableColumn fx:id="colCheckOutAction" text="Action" prefWidth="150"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </TitledPane>
+        </VBox>
+    </center>
+</BorderPane>
+

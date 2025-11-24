@@ -1,0 +1,72 @@
+/* style.css - basic theme for login screen */
+.root {
+    -fx-font-family: "System";
+}
+
+/* Left panel (splash) */
+.left-panel {
+    -fx-background-color: linear-gradient(to bottom right, #0f172a, #0b2a59);
+    -fx-padding: 36;
+    -fx-alignment: center;
+    -fx-pref-width: 360;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0, 0, 6);
+    -fx-text-fill: white;
+}
+
+.splash-title {
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+    -fx-font-weight: 700;
+}
+
+.splash-subtitle {
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 14px;
+}
+
+.splash-tag {
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-size: 12px;
+}
+
+/* Right panel */
+.right-panel {
+    -fx-background-color: #ffffff;
+    -fx-padding: 48;
+}
+
+.form-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #0b2a59;
+}
+
+/* Inputs */
+.input-field {
+    -fx-pref-width: 420;
+    -fx-pref-height: 40;
+    -fx-background-radius: 8;
+    -fx-border-radius: 8;
+    -fx-border-color: #e6e9f2;
+    -fx-padding: 0 12 0 12;
+}
+
+/* Primary button */
+.primary-btn {
+    -fx-background-color: linear-gradient(#0b6be6, #0a4cd6);
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 38;
+}
+
+/* Hover states */
+.primary-btn:hover {
+    -fx-opacity: 0.95;
+}
+
+/* Small helpers */
+.label, .hyperlink {
+    -fx-font-size: 13px;
+}

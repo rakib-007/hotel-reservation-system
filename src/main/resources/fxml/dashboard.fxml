@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hotelapp.controllers.DashboardController"
+            prefWidth="1100" prefHeight="700">
+
+    <!-- TOP BAR -->
+    <top>
+        <HBox spacing="12" alignment="CENTER_LEFT" style="-fx-padding:15; -fx-background-color:#f0f0f0;">
+            <Label text="Dashboard"
+                   style="-fx-font-size:20px; -fx-font-weight:bold;"/>
+
+            <Pane HBox.hgrow="ALWAYS"/> <!-- pushes buttons right -->
+
+            <Button text="New Reservation" onAction="#openNewReservation"/>
+            <Button text="Check-in/Check-out" onAction="#openCheckInOut"/>
+            <Button text="Guests" onAction="#openGuests"/>
+            <Button text="Rooms" onAction="#openRooms"/>
+        </HBox>
+    </top>
+
+    <!-- CENTER CONTENT -->
+    <center>
+        <VBox spacing="20" style="-fx-padding:20;">
+
+            <!-- STAT CARDS -->
+            <HBox spacing="20" alignment="CENTER">
+                <!-- Total Rooms -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Total Rooms"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblTotalRooms"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold;"/>
+                </VBox>
+
+                <!-- Free Rooms -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Free Rooms"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblFreeRooms"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:green;"/>
+                </VBox>
+
+                <!-- Booked Rooms -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Booked Rooms"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblOccupiedRooms"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:red;"/>
+                </VBox>
+
+                <!-- Total Reservations -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Total Reservations"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblTotalReservations"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold;"/>
+                </VBox>
+
+                <!-- Today's Check-ins -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Today's Check-ins"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblTodayCheckIns"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:blue;"/>
+                </VBox>
+
+                <!-- Today's Check-outs -->
+                <VBox alignment="CENTER" spacing="6"
+                      style="-fx-background-color:#ffffff; -fx-padding:15; -fx-border-color:#cccccc; -fx-border-radius:6; -fx-background-radius:6; -fx-min-width:200;">
+                    <Label text="Today's Check-outs"
+                           style="-fx-font-size:14px; -fx-font-weight:bold;"/>
+                    <Label fx:id="lblTodayCheckOuts"
+                           text="0"
+                           style="-fx-font-size:26px; -fx-font-weight:bold; -fx-text-fill:orange;"/>
+                </VBox>
+            </HBox>
+
+            <!-- GUEST INFORMATION SECTION -->
+            <TitledPane text="Guest Information" collapsible="true" expanded="false">
+                <VBox spacing="15" style="-fx-padding:15;">
+                    <HBox spacing="15">
+                        <Label text="Search by Phone or NID/Passport:"/>
+                        <TextField fx:id="tfGuestSearch" promptText="Enter phone or NID/Passport" prefWidth="250"/>
+                        <Button text="Search" onAction="#searchGuest"/>
+                    </HBox>
+                    
+                    <GridPane hgap="15" vgap="10" fx:id="gridGuestInfo" visible="false">
+                        <columnConstraints>
+                            <ColumnConstraints halignment="RIGHT" prefWidth="150"/>
+                            <ColumnConstraints prefWidth="300"/>
+                            <ColumnConstraints halignment="RIGHT" prefWidth="150"/>
+                            <ColumnConstraints prefWidth="300"/>
+                        </columnConstraints>
+                        
+                        <Label text="Name:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                        <Label fx:id="lblGuestName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        
+                        <Label text="Phone:" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                        <Label fx:id="lblGuestPhone" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                        
+                        <Label text="Address:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                        <Label fx:id="lblGuestAddress" GridPane.rowIndex="1" GridPane.columnIndex="1" wrapText="true" prefWidth="280"/>
+                        
+                        <Label text="NID/Passport:" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                        <Label fx:id="lblGuestNid" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                    </GridPane>
+                    
+                    <Label text="Purchase History:" style="-fx-font-weight:bold; -fx-font-size:14px;"/>
+                    <TableView fx:id="tblGuestHistory" prefHeight="200" visible="false">
+                        <columns>
+                            <TableColumn text="Reservation ID" prefWidth="100"/>
+                            <TableColumn text="Room" prefWidth="80"/>
+                            <TableColumn text="Check-in" prefWidth="120"/>
+                            <TableColumn text="Check-out" prefWidth="120"/>
+                            <TableColumn text="Status" prefWidth="100"/>
+                            <TableColumn text="Total (Tk)" prefWidth="100"/>
+                        </columns>
+                    </TableView>
+                </VBox>
+            </TitledPane>
+
+            <!-- TABLE OF RECENT RESERVATIONS -->
+            <TableView fx:id="tblReservations" prefHeight="400">
+                <columns>
+
+                    <TableColumn fx:id="colResId" text="ID" prefWidth="60"/>
+
+                    <TableColumn fx:id="colResRoom" text="Room No" prefWidth="80"/>
+
+                    <TableColumn fx:id="colResGuest" text="Guest Name" prefWidth="200"/>
+
+                    <TableColumn fx:id="colResPhone" text="Phone" prefWidth="150"/>
+
+                    <TableColumn fx:id="colResCheckin" text="Check-in" prefWidth="140"/>
+
+                    <TableColumn fx:id="colResCheckout" text="Check-out" prefWidth="140"/>
+
+                    <TableColumn fx:id="colResStatus" text="Status" prefWidth="120"/>
+
+                    <TableColumn fx:id="colResTotal" text="Total (Tk)" prefWidth="100"/>
+
+                </columns>
+            </TableView>
+
+        </VBox>
+    </center>
+
+</BorderPane>

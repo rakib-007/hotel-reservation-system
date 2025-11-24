@@ -1,0 +1,63 @@
+========================================
+HOW TO RUN ON WINDOWS PC
+========================================
+
+METHOD 1: EASIEST WAY (Double-click)
+-------------------------------------
+1. Double-click the file: run-windows.bat
+2. The application will start automatically
+
+REQUIREMENTS:
+- Java JDK 17 or higher must be installed
+- Maven must be installed
+
+========================================
+
+METHOD 2: Using Command Prompt
+-------------------------------------
+1. Open Command Prompt (cmd)
+2. Navigate to the project folder:
+   cd "C:\path\to\hotel-reservation"
+3. Run: mvn clean javafx:run
+
+========================================
+
+METHOD 3: Create Standalone JAR
+-------------------------------------
+1. Open Command Prompt
+2. Navigate to project folder
+3. Build: mvn clean package
+4. Run: java -jar target/hotel-reservation-1.0-SNAPSHOT.jar
+
+Note: This requires JavaFX modules to be available.
+For easier distribution, use jpackage to create .exe file.
+
+========================================
+
+INSTALLATION REQUIREMENTS
+-------------------------------------
+1. Java JDK 17 or higher
+   Download: https://adoptium.net/
+   Verify: java -version
+
+2. Maven 3.6 or higher
+   Download: https://maven.apache.org/download.cgi
+   Verify: mvn -version
+
+========================================
+
+DEFAULT LOGIN
+-------------------------------------
+Username: admin
+Password: admin
+
+========================================
+
+TROUBLESHOOTING
+-------------------------------------
+- "Java not found": Install Java JDK and add to PATH
+- "Maven not found": Install Maven and add to PATH
+- App won't start: Check Java version (must be JDK 17+)
+
+========================================
+
