@@ -62,7 +62,20 @@ public class ReservationService {
         try (Connection conn = DBUtil.getConnection()) {
             try {
                 conn.setAutoCommit(false);
+                
+                // Get reservation to find the room ID
+                Reservation reservation = reservationDAO.findById(reservationId);
+                if (reservation == null) {
+                    throw new Exception("Reservation not found");
+                }
+                
+                // Update reservation status to CANCELLED
                 reservationDAO.updateStatus(reservationId, "CANCELLED", conn);
+                
+                // Update room status to FREE when reservation is cancelled
+                // Check if room is BOOKED or OCCUPIED (both should become FREE on cancellation)
+                roomDAO.updateStatus(reservation.getRoomId(), "FREE", conn);
+                
                 conn.commit();
             } catch (Exception e) {
                 conn.rollback();

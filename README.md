@@ -9,7 +9,20 @@ A JavaFX-based hotel reservation management system with SQLite database.
 
 ## Running on Windows
 
-### Option 1: Using Maven (Recommended for Development)
+### ⚠️ IMPORTANT: Correct Directory
+
+**The project is in the `hotel-reservation` subdirectory!**
+
+If you're in: `D:\Downloads\Hotel Reservation System\Hotel Reservation System`
+You need to navigate to: `D:\Downloads\Hotel Reservation System\Hotel Reservation System\hotel-reservation`
+
+### Option 1: Easiest - Double-click START_HERE.bat
+
+1. **Go to the parent directory** (where you see `START_HERE.bat`)
+2. **Double-click `START_HERE.bat`**
+   - This automatically navigates to the correct folder and runs the app
+
+### Option 2: Using Maven (Recommended for Development)
 
 1. **Install Java JDK 17+** if not already installed
    - Download from: https://adoptium.net/
@@ -44,9 +57,10 @@ A JavaFX-based hotel reservation management system with SQLite database.
 
    Or simply double-click `run-windows.bat` (see below)
 
-### Option 3: Using Batch File (Easiest)
+### Option 3: Using Batch File in hotel-reservation folder
 
-1. **Double-click `run-windows.bat`** in the project root
+1. **Navigate to `hotel-reservation` folder first**
+2. **Double-click `run-windows.bat`** in the `hotel-reservation` folder
    - This will automatically build and run the application
 
 ## Building for Distribution
@@ -99,8 +113,14 @@ jpackage --input target --name "Hotel Reservation System" --main-jar hotel-reser
 - Install Maven and add it to PATH
 - Verify with: `mvn -version`
 
+### "no POM in this directory" or "No plugin found for prefix 'javafx'"
+- **You're in the wrong directory!**
+- Navigate to the `hotel-reservation` subdirectory first
+- Or use `START_HERE.bat` from the parent directory
+
 ### Application won't start
 - Make sure Java JDK 17+ is installed
+- Make sure you're in the `hotel-reservation` directory (where `pom.xml` is located)
 - Check that all dependencies are downloaded: `mvn clean compile`
 - Check console for error messages
 

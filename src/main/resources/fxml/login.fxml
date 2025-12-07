@@ -9,5 +9,12 @@
             <PasswordField fx:id="txtPass" promptText="Password" prefWidth="320"/>
             <Button text="Login" onAction="#handleLogin" prefWidth="220"/>
         </VBox>
+        <Button fx:id="btnDeveloperInfo" text="ℹ" onAction="#handleDeveloperInfo" 
+                AnchorPane.rightAnchor="20" AnchorPane.bottomAnchor="20"
+                style="-fx-background-color: transparent; -fx-text-fill: #666; -fx-font-size: 24px; -fx-cursor: hand; -fx-padding: 5px;">
+            <tooltip>
+                <Tooltip text="Developer Info"/>
+            </tooltip>
+        </Button>
     </children>
 </AnchorPane>

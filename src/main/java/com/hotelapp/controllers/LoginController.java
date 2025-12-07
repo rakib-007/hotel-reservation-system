@@ -5,8 +5,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
@@ -24,6 +26,14 @@ import java.sql.ResultSet;
 public class LoginController {
     @FXML private TextField txtUser;
     @FXML private PasswordField txtPass;
+    @FXML private Button btnDeveloperInfo;
+
+    public void initialize() {
+        if (btnDeveloperInfo != null) {
+            Tooltip tooltip = new Tooltip("Developer Info");
+            btnDeveloperInfo.setTooltip(tooltip);
+        }
+    }
 
     @FXML
     public void handleLogin() {
@@ -64,6 +74,21 @@ public class LoginController {
         a.setHeaderText(null);
         a.setContentText(msg);
         a.showAndWait();
+    }
+
+    @FXML
+    public void handleDeveloperInfo() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Developer Information");
+        alert.setHeaderText("About the Developer");
+        alert.setContentText(
+            "Name: Rakibul Islam Sifat\n" +
+            "Email: rakibulislamsifat0@gmail.com\n" +
+            "GitHub: github.com/rakib-007\n" +
+            "Project: Hotel Reservation System\n" +
+            "Version: 1.0"
+        );
+        alert.showAndWait();
     }
 
     // Loads dashboard.fxml into the same Stage
