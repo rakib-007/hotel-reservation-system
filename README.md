@@ -32,7 +32,7 @@ You need to navigate to: `D:\Downloads\Hotel Reservation System\Hotel Reservatio
 ### Option 2: Using Maven (Recommended for Development)
 
 1. **Install Java JDK 25** if not already installed
-   - Download from: https://adoptium.net/
+   - Download from: https://www.oracle.com/apac/java/technologies/downloads/#jdk25-windows
    - Verify installation: Open Command Prompt and run `java -version`
 
 2. **Install Maven** if not already installed
