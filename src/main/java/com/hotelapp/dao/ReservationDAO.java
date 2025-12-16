@@ -281,4 +281,34 @@ public class ReservationDAO {
         }
         return list;
     }
+
+    /**
+     * Find reservations whose checkout date is before the given date
+     * and are still in an active state (CONFIRMED or CHECKED_IN).
+     * These are candidates to be auto-completed and their rooms freed.
+     */
+    public List<Reservation> getOverdueReservations(LocalDate today) throws SQLException {
+        List<Reservation> list = new ArrayList<>();
+        String sql = "SELECT id, customer_id, room_id, checkin, checkout, status, total " +
+                "FROM reservations " +
+                "WHERE checkout < ? AND status IN ('CONFIRMED', 'CHECKED_IN')";
+        try (Connection c = DBUtil.getConnection();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, today.toString());
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Reservation r = new Reservation();
+                    r.setId(rs.getInt("id"));
+                    r.setCustomerId(rs.getInt("customer_id"));
+                    r.setRoomId(rs.getInt("room_id"));
+                    r.setCheckin(LocalDate.parse(rs.getString("checkin")));
+                    r.setCheckout(LocalDate.parse(rs.getString("checkout")));
+                    r.setStatus(rs.getString("status"));
+                    r.setTotal(rs.getDouble("total"));
+                    list.add(r);
+                }
+            }
+        }
+        return list;
+    }
 }

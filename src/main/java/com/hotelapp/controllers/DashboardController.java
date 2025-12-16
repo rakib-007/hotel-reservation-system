@@ -109,6 +109,15 @@ public class DashboardController {
             return row;
         });
 
+        // Ensure past-dated stays are auto-completed and rooms freed.
+        // Any database lock issues (SQLITE_BUSY) are handled silently inside the service.
+        try {
+            reservationService.autoCompletePastCheckouts();
+        } catch (Exception e) {
+            // Log to console only; do not show popup to avoid bothering the user
+            e.printStackTrace();
+        }
+
         loadStats();
         loadRecentReservations();
     }
@@ -242,6 +251,23 @@ public class DashboardController {
         } catch (Exception e) {
             e.printStackTrace();
             showError("Unable to open Check-in/Check-out: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Logout back to the login screen.
+     */
+    @FXML
+    public void handleLogout() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            Stage stage = (Stage) lblTotalRooms.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Hotel Reservation System - Login");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Unable to logout: " + e.getMessage());
         }
     }
 

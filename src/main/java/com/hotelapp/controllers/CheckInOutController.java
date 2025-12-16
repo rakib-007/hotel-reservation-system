@@ -171,6 +171,23 @@ public class CheckInOutController {
         }
     }
 
+    /**
+     * Logout back to the login screen.
+     */
+    @FXML
+    public void handleLogout() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+            Stage stage = (Stage) tblCheckIns.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.setTitle("Hotel Reservation System - Login");
+            stage.centerOnScreen();
+        } catch (Exception e) {
+            e.printStackTrace();
+            showError("Unable to logout: " + e.getMessage());
+        }
+    }
+
     private void showError(String msg) {
         Alert a = new Alert(Alert.AlertType.ERROR);
         a.setTitle("Error");

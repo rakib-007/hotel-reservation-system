@@ -20,6 +20,7 @@
             <Button text="Check-in/Check-out" onAction="#openCheckInOut"/>
             <Button text="Guests" onAction="#openGuests"/>
             <Button text="Rooms" onAction="#openRooms"/>
+            <Button text="Logout" onAction="#handleLogout"/>
         </HBox>
     </top>
 

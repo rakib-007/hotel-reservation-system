@@ -11,6 +11,8 @@
         <HBox spacing="10" alignment="CENTER_LEFT" style="-fx-padding:12;">
             <Button text="Back" onAction="#goBack"/>
             <Label text="Rooms Management" style="-fx-font-size:16px; -fx-font-weight:bold;"/>
+            <Pane HBox.hgrow="ALWAYS"/>
+            <Button text="Logout" onAction="#handleLogout"/>
         </HBox>
     </top>
 

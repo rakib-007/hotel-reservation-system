@@ -8,6 +8,7 @@ import com.hotelapp.models.Reservation;
 import com.hotelapp.utils.DBUtil;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -169,5 +170,43 @@ public class ReservationService {
      */
     public List<Reservation> getTodayCheckOuts() throws Exception {
         return reservationDAO.getReservationsByCheckOutDate(LocalDate.now());
+    }
+
+    /**
+     * Automatically complete past reservations and free rooms for
+     * any stays where the checkout date is before today but the
+     * reservation is still CONFIRMED or CHECKED_IN.
+     *
+     * This helps ensure rooms do not remain stuck as BOOKED/OCCUPIED
+     * after the stay has already ended by date.
+     */
+    public void autoCompletePastCheckouts() throws Exception {
+        try (Connection conn = DBUtil.getConnection()) {
+            try {
+                conn.setAutoCommit(false);
+
+                List<Reservation> overdue = reservationDAO.getOverdueReservations(LocalDate.now());
+                for (Reservation r : overdue) {
+                    // Mark reservation as COMPLETED and free the room
+                    reservationDAO.updateStatus(r.getId(), "COMPLETED", conn);
+                    roomDAO.updateStatus(r.getRoomId(), "FREE", conn);
+                }
+
+                conn.commit();
+            } catch (SQLException e) {
+                conn.rollback();
+                // If the database is locked, skip auto-complete silently
+                String msg = e.getMessage();
+                if (msg != null && msg.toUpperCase().contains("SQLITE_BUSY")) {
+                    return;
+                }
+                throw e;
+            } catch (Exception e) {
+                conn.rollback();
+                throw e;
+            } finally {
+                conn.setAutoCommit(true);
+            }
+        }
     }
 }
