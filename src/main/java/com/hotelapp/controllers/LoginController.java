@@ -38,10 +38,15 @@ public class LoginController {
     @FXML
     public void handleLogin() {
         String user = txtUser.getText() == null ? "" : txtUser.getText().trim();
-        String pass = txtPass.getText() == null ? "" : txtPass.getText();
+        String pass = txtPass.getText() == null ? "" : txtPass.getText().trim();
 
         if (user.isEmpty()) {
             show(AlertType.WARNING, "Please enter username");
+            return;
+        }
+
+        if (pass.isEmpty()) {
+            show(AlertType.WARNING, "Please enter password");
             return;
         }
 
@@ -59,7 +64,18 @@ public class LoginController {
                     openDashboard();
                     return;
                 } else {
-                    show(AlertType.WARNING, "Invalid username or password.");
+                    // Check if username exists to give better error message
+                    String checkUserSql = "SELECT username FROM users WHERE username = ?";
+                    try (PreparedStatement checkPs = c.prepareStatement(checkUserSql)) {
+                        checkPs.setString(1, user);
+                        try (ResultSet userRs = checkPs.executeQuery()) {
+                            if (userRs.next()) {
+                                show(AlertType.WARNING, "Invalid password. Please try again.");
+                            } else {
+                                show(AlertType.WARNING, "Invalid username. Please check your username and try again.\n\nDefault credentials:\nUsername: admin\nPassword: admin");
+                            }
+                        }
+                    }
                 }
             }
         } catch (Exception e) {

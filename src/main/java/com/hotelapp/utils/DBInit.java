@@ -131,6 +131,40 @@ public class DBInit {
                 } catch (Exception e) {
                     System.out.println("Seed check error: " + e.getMessage());
                 }
+
+                // Ensure admin user exists with default credentials
+                try (Statement userCheck = conn.createStatement()) {
+                    var rs = userCheck.executeQuery(
+                            "SELECT name FROM sqlite_master WHERE type='table' AND name='users';");
+                    boolean usersTableExists = rs.next();
+                    rs.close();
+
+                    if (usersTableExists) {
+                        // Check if admin user exists
+                        var adminCheck = userCheck.executeQuery(
+                                "SELECT COUNT(*) AS cnt FROM users WHERE username = 'admin';");
+                        int adminCount = 0;
+                        if (adminCheck.next()) adminCount = adminCheck.getInt("cnt");
+                        adminCheck.close();
+
+                        if (adminCount == 0) {
+                            // Create admin user with default password
+                            try (Statement createAdmin = conn.createStatement()) {
+                                createAdmin.executeUpdate(
+                                        "INSERT INTO users (username, password, role) VALUES ('admin', 'admin', 'ADMIN');");
+                                System.out.println("Created default admin user (username: admin, password: admin).");
+                            } catch (Exception se) {
+                                System.err.println("Failed to create admin user: " + se.getMessage());
+                            }
+                        } else {
+                            System.out.println("Admin user already exists.");
+                        }
+                    } else {
+                        System.out.println("Warning: users table does not exist yet.");
+                    }
+                } catch (Exception e) {
+                    System.out.println("Admin user check error: " + e.getMessage());
+                }
             }
 
             System.out.println("DB init complete at: " + DB_FILE.toAbsolutePath());

@@ -250,12 +250,14 @@ public class ReservationDAO {
 
     public List<Reservation> getReservationsByCheckOutDate(LocalDate date) throws SQLException {
         List<Reservation> list = new ArrayList<>();
+        // Include both CHECKED_IN (ready to check out) and CONFIRMED (scheduled to check out today)
+        // Exclude CANCELLED and COMPLETED reservations
         String sql = "SELECT r.id, r.customer_id, r.room_id, r.checkin, r.checkout, r.status, r.total, " +
-                "c.name AS customer_name, rm.room_number " +
+                "c.name AS customer_name, c.phone AS customer_phone, rm.room_number " +
                 "FROM reservations r " +
                 "LEFT JOIN customers c ON r.customer_id = c.id " +
                 "LEFT JOIN rooms rm ON r.room_id = rm.id " +
-                "WHERE r.checkout = ? AND r.status = 'CHECKED_IN' " +
+                "WHERE r.checkout = ? AND r.status IN ('CHECKED_IN', 'CONFIRMED') " +
                 "ORDER BY r.checkout";
         try (Connection c = DBUtil.getConnection();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -271,6 +273,7 @@ public class ReservationDAO {
                     r.setStatus(rs.getString("status"));
                     r.setTotal(rs.getDouble("total"));
                     r.setCustomerName(rs.getString("customer_name"));
+                    r.setCustomerPhone(rs.getString("customer_phone"));
                     r.setRoomNumber(rs.getString("room_number"));
                     list.add(r);
                 }

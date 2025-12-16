@@ -79,5 +79,35 @@ public class DBManager {
             System.out.println("Admin user ensured (created or updated).");
         }
     }
+
+    /**
+     * Ensures admin user exists with default password 'admin'.
+     * Creates if not exists, does not change password if already exists.
+     * @throws SQLException If the operation fails
+     */
+    public static void ensureDefaultAdminUser() throws SQLException {
+        try (Connection conn = DBUtil.getConnection()) {
+            // First check if admin exists
+            String checkSql = "SELECT COUNT(*) AS cnt FROM users WHERE username = 'admin'";
+            try (Statement stmt = conn.createStatement();
+                 var rs = stmt.executeQuery(checkSql)) {
+                int count = 0;
+                if (rs.next()) {
+                    count = rs.getInt("cnt");
+                }
+                
+                if (count == 0) {
+                    // Admin doesn't exist, create it
+                    String insertSql = "INSERT INTO users (username, password, role) VALUES ('admin', 'admin', 'ADMIN')";
+                    try (Statement insertStmt = conn.createStatement()) {
+                        insertStmt.executeUpdate(insertSql);
+                        System.out.println("Created default admin user (username: admin, password: admin).");
+                    }
+                } else {
+                    System.out.println("Admin user already exists.");
+                }
+            }
+        }
+    }
 }
 

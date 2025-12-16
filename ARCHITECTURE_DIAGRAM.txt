@@ -1,0 +1,218 @@
+================================================================================
+                    HOTEL RESERVATION SYSTEM ARCHITECTURE
+================================================================================
+
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                           PRESENTATION LAYER                                 │
+│                         (JavaFX Controllers)                                 │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌─────────────────┐  ┌──────────────────┐  ┌─────────────────────────┐   │
+│  │ LoginController │  │DashboardController│  │ ReservationController   │   │
+│  │                 │  │                  │  │                         │   │
+│  │ - handleLogin() │  │ - loadStats()    │  │ - handleBook()          │   │
+│  │ - validate()    │  │ - searchGuest()  │  │ - handleCalculate()     │   │
+│  └────────┬────────┘  │ - openRooms()    │  │ - loadFreeRooms()       │   │
+│           │           └────────┬─────────┘  └──────────┬──────────────┘   │
+│           │                    │                       │                   │
+│  ┌────────┴────────┐  ┌────────┴─────────┐  ┌─────────┴──────────────┐   │
+│  │ GuestController │  │CheckInOutController│ │ReservationDetailCtrl   │   │
+│  │                 │  │                  │  │                        │   │
+│  │ - handleSearch()│  │ - handleCheckIn()│  │ - handleCheckIn()      │   │
+│  │ - viewDetails() │  │ - handleCheckOut()│ │ - handleCheckOut()     │   │
+│  └─────────────────┘  └──────────────────┘  └────────────────────────┘   │
+│                                                                             │
+└──────────────────────────────┬──────────────────────────────────────────────┘
+                               │
+                               │ Uses
+                               ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            SERVICE LAYER                                     │
+│                         (Business Logic)                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                        ┌──────────────────────┐                            │
+│                        │ ReservationService   │                            │
+│                        │                      │                            │
+│                        │ - bookReservation()  │                            │
+│                        │ - cancelReservation()│                            │
+│                        │ - checkIn()          │                            │
+│                        │ - checkOut()         │                            │
+│                        │ - getTodayCheckIns() │                            │
+│                        │ - getTodayCheckOuts()│                            │
+│                        └──────────┬───────────┘                            │
+│                                   │                                         │
+│                        [Manages Transactions]                               │
+│                                                                             │
+└──────────────────────────────┬──────────────────────────────────────────────┘
+                               │
+                               │ Uses
+                               ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         DATA ACCESS LAYER                                    │
+│                            (DAO Pattern)                                     │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌──────────────┐      ┌───────────────┐      ┌──────────────────┐        │
+│  │ CustomerDAO  │      │ ReservationDAO│      │    RoomDAO       │        │
+│  │              │      │               │      │                  │        │
+│  │ - create()   │      │ - insert()    │      │ - addRoom()      │        │
+│  │ - findById() │      │ - findById()  │      │ - findById()     │        │
+│  │ - update()   │      │ - update()    │      │ - updateStatus() │        │
+│  │ - delete()   │      │ - delete()    │      │ - getFreeRooms() │        │
+│  │ - findOrCreate()│   │ - findBetween()│     │                  │        │
+│  └──────────────┘      └───────────────┘      └──────────────────┘        │
+│                                                                             │
+└──────────────────────────────┬──────────────────────────────────────────────┘
+                               │
+                               │ Uses
+                               ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                            MODEL LAYER                                       │
+│                        (Domain Objects)                                      │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│  ┌──────────┐           ┌──────────────┐          ┌──────────┐            │
+│  │ Customer │           │ Reservation  │          │   Room   │            │
+│  │          │           │              │          │          │            │
+│  │ - id     │           │ - id         │          │ - id     │            │
+│  │ - name   │           │ - customerId │          │ - number │            │
+│  │ - phone  │           │ - roomId     │          │ - type   │            │
+│  │ - email  │           │ - checkin    │          │ - price  │            │
+│  │ - address│           │ - checkout   │          │ - status │            │
+│  │ - nid    │           │ - status     │          │          │            │
+│  │          │           │ - total      │          │          │            │
+│  └──────────┘           └──────────────┘          └──────────┘            │
+│                                                                             │
+└──────────────────────────────┬──────────────────────────────────────────────┘
+                               │
+                               │ Mapped to
+                               ↓
+┌─────────────────────────────────────────────────────────────────────────────┐
+│                         DATABASE LAYER                                       │
+│                          (SQLite via JDBC)                                   │
+├─────────────────────────────────────────────────────────────────────────────┤
+│                                                                             │
+│                    ┌────────────────────────┐                              │
+│                    │    hotel.db            │                              │
+│                    │                        │                              │
+│                    │  ┌──────────────┐     │                              │
+│                    │  │   users      │     │                              │
+│                    │  │ - id         │     │                              │
+│                    │  │ - username   │     │                              │
+│                    │  │ - password   │     │                              │
+│                    │  │ - role       │     │                              │
+│                    │  └──────────────┘     │                              │
+│                    │                        │                              │
+│                    │  ┌──────────────┐     │                              │
+│                    │  │  customers   │     │                              │
+│                    │  │ - id         │     │                              │
+│                    │  │ - name       │     │                              │
+│                    │  │ - phone      │     │                              │
+│                    │  │ - address    │     │                              │
+│                    │  │ - nid_passport│   │                              │
+│                    │  └──────────────┘     │                              │
+│                    │         │              │                              │
+│                    │  ┌──────┴──────────┐  │                              │
+│                    │  │ reservations   │  │                              │
+│                    │  │ - id           │  │                              │
+│                    │  │ - customer_id ─┼──┤                              │
+│                    │  │ - room_id ─────┼──┤                              │
+│                    │  │ - checkin      │  │                              │
+│                    │  │ - checkout     │  │                              │
+│                    │  │ - status       │  │                              │
+│                    │  │ - total        │  │                              │
+│                    │  └──────┬─────────┘  │                              │
+│                    │         │            │                              │
+│                    │  ┌──────┴──────────┐ │                              │
+│                    │  │    rooms        │ │                              │
+│                    │  │ - id            │ │                              │
+│                    │  │ - room_number   │ │                              │
+│                    │  │ - type          │ │                              │
+│                    │  │ - price         │ │                              │
+│                    │  │ - status        │ │                              │
+│                    │  └─────────────────┘ │                              │
+│                    └────────────────────────┘                              │
+│                                                                             │
+└─────────────────────────────────────────────────────────────────────────────┘
+
+================================================================================
+                              DATA FLOW EXAMPLE
+================================================================================
+
+RESERVATION BOOKING FLOW:
+
+User Action (UI)
+    ↓
+ReservationController.handleBook()
+    ↓
+ReservationService.bookReservation()
+    ↓
+    ├──→ CustomerDAO.findOrCreate() ──→ SQLite (customers table)
+    ├──→ ReservationDAO.findReservationsBetween() ──→ SQLite (reservations table)
+    ├──→ ReservationDAO.insertReservation() ──→ SQLite (reservations table)
+    └──→ RoomDAO.updateStatus() ──→ SQLite (rooms table)
+    ↓
+Transaction Commit/Rollback
+    ↓
+Return Result to Controller
+    ↓
+Show Alert to User
+
+================================================================================
+                            OOP CONCEPTS MAPPING
+================================================================================
+
+ENCAPSULATION:
+  ✓ Private fields with public getters/setters (Customer, Room, Reservation)
+  ✓ Data hiding - internal implementation not exposed
+
+ABSTRACTION:
+  ✓ DAO classes abstract database operations
+  ✓ Service layer abstracts business logic
+  ✓ Controllers abstract UI interactions
+
+INHERITANCE:
+  ✓ MainApp extends Application (JavaFX)
+  ✓ Controllers follow JavaFX controller pattern
+
+POLYMORPHISM:
+  ✓ Method overloading (multiple constructors)
+  ✓ Runtime polymorphism via interfaces (extendable)
+
+COMPOSITION:
+  ✓ Reservation contains Customer and Room references
+  ✓ Controllers compose DAOs and Services
+
+ASSOCIATION:
+  ✓ One-to-Many: Customer → Reservations
+  ✓ One-to-Many: Room → Reservations
+  ✓ Many-to-One: Reservations → Customer, Room
+
+================================================================================
+                          DESIGN PATTERNS USED
+================================================================================
+
+1. MVC (Model-View-Controller)
+   - Models: Domain objects
+   - Views: FXML files
+   - Controllers: Handle user input
+
+2. DAO (Data Access Object)
+   - Separate database logic from business logic
+   - One DAO per entity
+
+3. Service Layer
+   - Encapsulate business logic
+   - Coordinate multiple DAOs
+   - Manage transactions
+
+4. Singleton (Implicit)
+   - DBUtil provides single entry point for connections
+
+5. Factory Pattern
+   - FXMLLoader creates controller instances
+   - DBUtil creates connections
+
+================================================================================
+
