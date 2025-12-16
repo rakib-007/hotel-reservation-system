@@ -1,10 +1,17 @@
+Rakibul Islam Sifat  
+Student ID: 242-15-353  
+DIU Email: sifat242-25-353@diu.edu.bd  
+Personal Email: sifat242-25-353@diu.edu.bd  
+
+⚠️ **Note:** This project is created for **Daffodil International University (DIU) students**, specifically for **OOP course work**.  
+
 # Hotel Reservation System
 
 A JavaFX-based hotel reservation management system with SQLite database.
 
 ## Requirements
 
-- **Java JDK 17 or higher** (JDK 25 recommended)
+- **Java JDK 25 (only supported version)**  
 - **Maven 3.6+** (for building from source)
 
 ## Running on Windows
@@ -24,7 +31,7 @@ You need to navigate to: `D:\Downloads\Hotel Reservation System\Hotel Reservatio
 
 ### Option 2: Using Maven (Recommended for Development)
 
-1. **Install Java JDK 17+** if not already installed
+1. **Install Java JDK 25** if not already installed
    - Download from: https://adoptium.net/
    - Verify installation: Open Command Prompt and run `java -version`
 
@@ -77,7 +84,7 @@ The JAR will be created at: `target/hotel-reservation-1.0-SNAPSHOT.jar`
 
 ### Create Windows Executable (.exe)
 
-To create a Windows executable, you can use `jpackage` (requires JDK 14+):
+To create a Windows executable, you can use `jpackage` (requires JDK 14+, tested with JDK 25):
 
 ```cmd
 jpackage --input target --name "Hotel Reservation System" --main-jar hotel-reservation-1.0-SNAPSHOT.jar --main-class com.hotelapp.MainApp --type exe --win-dir-chooser --win-menu --win-shortcut
@@ -106,7 +113,7 @@ jpackage --input target --name "Hotel Reservation System" --main-jar hotel-reser
 ## Troubleshooting
 
 ### "Java not found" error
-- Install Java JDK 17+ and add it to PATH
+- Install Java JDK 25 and add it to PATH
 - Verify with: `java -version`
 
 ### "Maven not found" error
@@ -119,7 +126,7 @@ jpackage --input target --name "Hotel Reservation System" --main-jar hotel-reser
 - Or use `START_HERE.bat` from the parent directory
 
 ### Application won't start
-- Make sure Java JDK 17+ is installed
+- Make sure Java JDK 25 is installed
 - Make sure you're in the `hotel-reservation` directory (where `pom.xml` is located)
 - Check that all dependencies are downloaded: `mvn clean compile`
 - Check console for error messages
