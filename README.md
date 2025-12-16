@@ -3,7 +3,7 @@ Student ID: 242-15-353
 DIU Email: sifat242-15-353@diu.edu.bd  
 Personal Email: rakibulislamsifat0@gmail.com  
 
-⚠️ **Note:** This project is created for **Daffodil International University (DIU) students**, specifically for **OOP course work**.  
+⚠️ **Note:** This project is created for **Daffodil International University (DIU) students**, specifically for **OOP course Projects**.  
 
 # Hotel Reservation System
 
