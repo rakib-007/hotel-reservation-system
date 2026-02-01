@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Star Runner - Browser Game</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="layout">
+      <section class="panel info">
+        <h1>Star Runner</h1>
+        <p class="lead">
+          Dodge asteroids, grab bonus stars, and survive as long as you can.
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <span class="label">Score</span>
+            <span id="score">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Best</span>
+            <span id="best">0</span>
+          </div>
+          <div class="stat">
+            <span class="label">Lives</span>
+            <span id="lives">3</span>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button id="startBtn" type="button">Start</button>
+          <button id="pauseBtn" type="button">Pause</button>
+          <button id="resetBtn" type="button">Reset</button>
+        </div>
+
+        <ul class="controls">
+          <li>Move: Arrow keys or A/D</li>
+          <li>Start or resume: Space</li>
+          <li>Pause: P</li>
+          <li>Restart: R</li>
+          <li>Touch: drag on the game area</li>
+        </ul>
+
+        <p class="tip">Collect stars for bonus points. Avoid asteroids.</p>
+      </section>
+
+      <section class="panel game">
+        <div class="game-board" id="gameBoard">
+          <canvas
+            id="gameCanvas"
+            role="img"
+            aria-label="Star Runner game area"
+          ></canvas>
+          <div class="overlay" id="overlay">
+            <div class="overlay-card">
+              <h2 id="overlayTitle">Star Runner</h2>
+              <p id="overlayMessage">Press Start or Space to play.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">Built for learning. Free to deploy.</footer>
+
+    <script src="game.js"></script>
+  </body>
+</html>

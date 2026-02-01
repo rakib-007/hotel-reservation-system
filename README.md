@@ -151,3 +151,8 @@ hotel-reservation/
 └── pom.xml
 ```
 
+## Browser Game (Learning Project)
+
+A simple browser-based game is available in `web-game/`.
+See `web-game/README.md` for local run steps and free deployment options.
+
